@@ -49,4 +49,44 @@ class PostsController extends Controller
             'data' => $post
         ], 201); 
     }
+
+    // function show
+    public function show($id){
+        $post = Post::find($id);
+
+        return response()->json([
+           'success' => true,
+            'data' => $post
+        ], 200);
+    }
+
+    // function update
+    public function update($id, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'content' => 'required|string|max:255',
+            'image_url' => 'nullable'
+        ]);
+
+        // check validator jika gagal
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->error()
+            ],400);
+        }
+
+        // jika validator sukses
+        $post = Post::find($id);
+        // Tampung data baru
+        $post->content = $request->content;
+        $post->image_url = $request->image_url;
+        $post->save();
+
+        return response()->json([
+           'success' => true,
+           'message' => 'Berhasil mengupdate data',
+            'data' => $post
+        ]);
+    }
 }

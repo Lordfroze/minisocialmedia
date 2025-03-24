@@ -89,4 +89,17 @@ class PostsController extends Controller
             'data' => $post
         ]);
     }
+
+    // function destroy
+    public function destroy($id)
+    {
+        Post::destroy($id);
+        return response()->json([
+          'success' => true,
+            'message' => 'Post berhasil dihapus'
+        ]);
+    }
+
+    
+
 }

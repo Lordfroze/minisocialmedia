@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator; // import validator
 
 class CommentsController extends Controller
 {
+    // menyimpan komentar
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -33,6 +34,19 @@ class CommentsController extends Controller
             'success' => true,
             'message' => 'Komentar berhasil ditambahkan',
             'data' => $comment
+        ],201);
+    }
+
+    // menghapus komentar
+    public function destroy($id)
+    {
+        Comment::destroy($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Komentar berhasil dihapus'
         ]);
     }
+
+
 }

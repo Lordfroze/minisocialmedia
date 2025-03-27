@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostsController;
-use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\PostsController; // import controller PostsController
+use App\Http\Controllers\CommentsController; // import controller CommentsController
+use App\Http\Controllers\LikesController; // import controller LikesController
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -25,4 +26,9 @@ Route::prefix('v1')->group(function () { // prefix untuk menentukan versi API
         Route::delete('{id}', [CommentsController::class, 'destroy']); // Menghapus komentar
     });
 
+    // Menghandle Likes
+    Route::prefix('likes')->group(function () {
+        Route::post('/', [LikesController::class,'store']); // Simpan like baru
+        Route::delete('{id}', [LikesController::class, 'destroy']); // Menghapus like
+    });
 });

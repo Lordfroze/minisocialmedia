@@ -19,7 +19,7 @@ class LikesController extends Controller
             return response()->json([
                'success' => false,
                'message' => $validator->errors()
-            ]);
+            ], 400);
         }
 
         // Simpan like baru ke dalam database

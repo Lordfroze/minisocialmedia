@@ -38,4 +38,25 @@ class MessagesController extends Controller
         ]);
     }
 
+    // menampilkan pesan
+    public function show($id)
+    {
+        $message = Message::find($id);
+
+        return response()->json([
+           'success' => true,
+           'message' => 'Berhasil mengambil pesan',
+           'data' => $message
+        ]);
+    }
+
+    // Menghapus pesan
+    public function destroy($id){
+        Message::destroy($id);
+
+        return response()->json([
+          'success' => true,
+         'message' => 'Pesan berhasil dihapus'
+        ]);
+    }
 }

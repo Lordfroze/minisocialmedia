@@ -40,4 +40,5 @@ Route::prefix('v1')->group(function () { // prefix untuk menentukan versi API
         Route::get('{id}', [MessagesController::class, 'show']); // lihat detail pesan
         Route::delete('{id}', [MessagesController::class, 'destroy']); // Menghapus pesan
     });
+
 });

@@ -34,4 +34,14 @@ class LikesController extends Controller
             'data' => $like
         ], 201);
     }
+
+    // menghapus like
+    public function destroy($id){
+        Like::destroy($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Like berhasil dihapus'
+        ]);
+    }
 }

@@ -9,14 +9,11 @@ use App\Http\Controllers\MessagesController; // import controller MessagesContro
 use App\Http\Controllers\JWTAuthController; // import controller JWTAuthController
 
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
 Route::prefix('v1')->group(function () { // prefix untuk menentukan versi API
 
     // Menghandle AUth
     Route::post('register', [JWTAuthController::class, 'register']); // register
+    Route::post('login', [JWTAuthController::class, 'login']); // login
 
     // Menghandle Post
     Route::prefix('posts')->group(function () {  

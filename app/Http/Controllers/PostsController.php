@@ -12,7 +12,7 @@ class PostsController extends Controller
     // function index
     public function index()
     {   
-        $posts = Post::get(); // mengambil semua data dari model Post
+        $posts = Post::with(['user', 'comments', 'likes'])->get(); // mengambil semua data dari model Post dengan relasi user, comments, dan likes
 
         return response()->json([
             'success' => true,
@@ -39,7 +39,7 @@ class PostsController extends Controller
 
         // jika validator sukses
         $post = Post::create([
-            'user_id' => $user->id,
+            'user_id' => $user->id, // mengambil id user dari data user yang login
             'content' => $request->content,
             'image_url' => $request->image_url
         ]);

@@ -38,6 +38,7 @@ Route::prefix('v1')->group(function () { // prefix untuk menentukan versi API
     Route::prefix('messages')->group(function () {
         Route::post('/', [MessagesController::class,'store']); // kirim pesan
         Route::get('{id}', [MessagesController::class, 'show']); // lihat detail pesan
+        Route::get('/getMessages/{user_id}', [MessagesController::class, 'getMessages']); // lihat pesan berdasarkan user id
         Route::delete('{id}', [MessagesController::class, 'destroy']); // Menghapus pesan
     });
 

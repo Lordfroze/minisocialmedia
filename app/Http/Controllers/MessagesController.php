@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator; // import validator
 use App\Models\Message; // import model Message
+use Tymon\JWTAuth\Facades\JWTAuth; // import JWTAuth
+
 
 class MessagesController extends Controller
 {
     //menyimpan pesan
     public function store(Request $request)
     {
+        $user = JWTAuth::parseToken()->authenticate(); // mengambil data user yang login berdasarkan token
+
         $validator = Validator::make($request->all(), [
-            'sender_id' =>'required',
             'receiver_id' =>'required',
             'message_content' =>'required'
         ]);
@@ -26,7 +29,7 @@ class MessagesController extends Controller
 
         // jika validasi berhasil
         $message = Message::create([
-            'sender_id' => $request->sender_id,
+            'sender_id' => $user->id, // mengambil id user dari data user yang login
            'receiver_id' => $request->receiver_id,
            'message_content' => $request->message_content
         ]);

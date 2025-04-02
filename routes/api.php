@@ -6,12 +6,18 @@ use App\Http\Controllers\PostsController; // import controller PostsController
 use App\Http\Controllers\CommentsController; // import controller CommentsController
 use App\Http\Controllers\LikesController; // import controller LikesController
 use App\Http\Controllers\MessagesController; // import controller MessagesController
+use App\Http\Controllers\JWTAuthController; // import controller JWTAuthController
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 Route::prefix('v1')->group(function () { // prefix untuk menentukan versi API
+
+    // Menghandle AUth
+    Route::post('register', [JWTAuthController::class, 'register']); // register
+
     // Menghandle Post
     Route::prefix('posts')->group(function () {  
         Route::get('/', [PostsController::class, 'index']); // mengambil semua data
